@@ -38,6 +38,13 @@ namespace RailCommander.Controllers
             return View();
         }
 
+        public ActionResult Deconnexion()
+        {
+            Session.RemoveAll();
+
+            return RedirectToAction("Connexion", "User");
+        }
+
         public ActionResult Inscription()
         {
             return View();

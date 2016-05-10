@@ -13,7 +13,17 @@
 <body>
     <!-- Wrapper -->
             <div id="FixHeader">
-                <div id="btnConnexionHeader">@Html.ActionLink("Me connecter", "Connexion", "User")</div>
+                @if (Session["email"] != null && Session["pass"] != null)
+                {
+                    <div id="btnConnexionHeader">
+                        <img src="../../Content/images/mon_compte.jpg"/>
+                        @Html.ActionLink("Mon compte", "Compte", "User")
+                    </div>
+                    <div id="btnDeconnexionHeader">
+                        @Html.ActionLink("Deconnection", "Deconnexion", "User")
+                    </div>
+                }
+                else { <div id="btnConnexionHeader">@Html.ActionLink("Me connecter", "Connexion", "User")</div> }
             </div>
             <div id="myHeader">
                 @{ Html.RenderPartial("../template/_LayoutHeader"); }
