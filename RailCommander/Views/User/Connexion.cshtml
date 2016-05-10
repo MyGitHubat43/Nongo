@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Connexion";
+}
+
+<div class="myBodyOther">
+    <div id="main">
+        <div class="inner">
+            <section>
+                <center>
+                    <h1>Compte client train</h1>
+                    <form method="post" action="@Url.Action("Connexion", "User")">
+                        <div class="field half">
+                            <input type="text" name="email" id="email" placeholder="Email" />
+                        </div>
+                        <div class="field half">
+                            <input type="password" name="pass" id="pass" placeholder="Mot de passe" />
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" value="Me connecter" class="special" /></li>
+                        </ul>
+                    </form>
+                    <div class="btnNormal">@Html.ActionLink("Pas de compte ?", "Inscription", "User")</div>
+                </center>
+            </section>
+        </div>
+    </div>
+</div>

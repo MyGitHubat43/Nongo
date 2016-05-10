@@ -1,0 +1,41 @@
+﻿@model RailCommander.Models.User
+@{
+    ViewBag.Title = "Inscription";
+}
+
+<div class="myBodyOther">
+    <div id="main">
+        <div class="inner">
+            <section>
+                <center>
+                    <h1>Compte client train</h1>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.HiddenFor(u => u.ID)
+                    <form method="post" action="#">
+                        <div class="field half">
+                            @Html.TextBoxFor(u => u.Name, new { @placeholder = "Nom" })
+                        </div>
+                        <div class="field half">
+                            @Html.TextBoxFor(u => u.FirstName, new { @placeholder = "Prenom" })
+                        </div>
+                        <div class="field half">
+                            @Html.TextBoxFor(u => u.Email, new { @placeholder = "Email" })
+                        </div>
+                        <div class="field half">
+                            @Html.PasswordFor(u => u.Pass, new { @placeholder = "Mot de passe" })
+                        </div>
+                        <div class="field half">
+                            @Html.PasswordFor(u => u.Pass2, new { @placeholder = "Confirmez mot de passe" })
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" value="Je m'inscris" class="special" /></li>
+                        </ul>
+                    </form>
+                    }
+                </center>
+            </section>
+        </div>
+    </div>
+</div>
+
