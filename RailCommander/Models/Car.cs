@@ -16,7 +16,7 @@ namespace RailCommander.Models
             this.id = id;
             this.numberPlace = numberPlace;
             this.train = train;
-            //tu pue
+            
         }
 
         public Car() { }
