@@ -3423,19 +3423,38 @@
     }
 
     #panneauClient #blocCommandes{
-        float: left;
+        display: inline-block;
         padding: 1%;
+        margin-left: 5%;
         width:45%;
         background-color: white;
         border-radius:3px;
-        box-shadow: 3px 3px 3px;
+        -webkit-box-shadow: 0 0 2px 2px grey;
+        -moz-box-shadow: 0 0 2px 2px grey;
+        box-shadow: 0 0 2px 2px grey;
     }
 
     #panneauClient #blocProfil{
+        /*float: left;*/
+        display: inline-block;
+        margin-left: -1%;
         padding: 1%;
-        margin-left: 55%;
         width:45%;
         background-color: white;
         border-radius:3px;
-        box-shadow: 3px 3px 3px;
+        -webkit-box-shadow: 0 0 2px 2px grey;
+        -moz-box-shadow: 0 0 2px 2px grey;
+        box-shadow: 0 0 2px 2px grey;
+    }
+
+    .tdInfosCompte{
+        font-weight: bold;
+    }
+
+    .password{
+        -webkit-text-security: disc;
+    }
+
+    div #panneauClient h2{
+        letter-spacing: 0;
     }

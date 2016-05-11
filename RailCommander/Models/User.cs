@@ -42,5 +42,17 @@ namespace RailCommander.Models
 
             return users;
         }
+
+        public static void AddUser(User u)
+        {
+            DBConnect BDD = new DBConnect();
+            BDD.AddUser(u);
+        }
+
+        public static void UpdateUser(User u)
+        {
+            DBConnect BDD = new DBConnect();
+            BDD.UpdateUser(u);
+        }
     }
 }

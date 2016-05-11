@@ -53,8 +53,7 @@ namespace RailCommander.Controllers
         [HttpPost]
         public ActionResult Inscription(User user)
         {
-            DBConnect db = new DBConnect();
-            db.AddUser(user);
+            Models.User.AddUser(user);
 
             Session["email"] = user.Email;
             Session["pass"] = user.Pass;
@@ -66,12 +65,24 @@ namespace RailCommander.Controllers
         {
             if(Session["email"] != null && Session["pass"] != null)
             {
-                return View();
+                String emailUser = Session["email"].ToString();
+                String passUser = Session["pass"].ToString();
+                var query = (from user in mesUsers
+                             where user.Email == emailUser && user.Pass == passUser
+                             select user).FirstOrDefault();
+                return View(query);
             }
             else
             {
                 return RedirectToAction("Connexion", "User");
             }
+        }
+
+        [HttpPost]
+        public ActionResult Compte(User user)
+        {
+            Models.User.UpdateUser(user);
+            return View();
         }
     }
 }
