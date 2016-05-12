@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RailCommander.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,22 @@ namespace RailCommander.Controllers
 {
     public class BilletController : Controller
     {
+        List<Station> mesStations = Models.Station.lesStations();
+
         // GET: Reservation
         public ActionResult Search()
         {
-            return View();
+            List<Station> myStation = new List<Station>();
+            var query = (from station in mesStations
+                         select station).ToList();
+
+            return View(query);
         }
+
+        /*[HttpPost]
+        public ActionResult Search()
+        {
+
+        }*/
     }
 }

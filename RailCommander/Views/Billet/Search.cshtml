@@ -1,12 +1,80 @@
-﻿
+﻿@model IEnumerable<RailCommander.Models.Station>
 @{
     ViewBag.Title = "Search";
+
+    String[] hours = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
 }
 
 <div class="myBody">
     <div id="main">
         <div class="inner">
-            <input type="text" />
+            <br />
+            <div id="blocSearch">
+                <div style="text-align:center;font-size:3em;margin-bottom:3%;">Je recherche : </div>
+                @using (Html.BeginForm())
+                {
+                    <table id="tabSearch">
+                        <tr>
+                            <td colspan="2">
+                                <input type="checkbox" name="choiceAllerSimple" checked />
+                                <input type="radio" name="choiceAllerRetour" />
+                                <input type="text" value="yolo" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Départ :</label></td>
+                            <td>
+                                <select name="selectStationDepart">
+                                    <option value=""> - </option>
+                                    @foreach(var item in Model)
+                                    {
+                                        <option value='"@item.ID"'>@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <!--<td><input type="text" name="gareDepart" placeholder="Depart" /></td>-->
+                            <td><label>Aller :</label></td>
+                            <td><input type="date" name="dateDepart" /></td>
+                            <td><label>A partir de :</label></td>
+                            <td>
+                                <select name="selectHourDepart">
+                                    <option value=""> - </option>
+                                    @foreach (string hour in hours)
+                                    {
+                                        <option value="@hour">@hour h</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Arrivée :</label></td>
+                            <td>
+                                <select name="selectStationArrivee">
+                                    <option value=""> - </option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value='"@item.ID"'>@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <!--<td><input type="text" name="gareArrivee" placeholder="Arrivée" /></td>-->
+                            <td><label>Retour :</label></td>
+                            <td><input type="date" name="dateArrivee" /></td>
+                            <td><label>A partir de :</label></td>
+                            <td>
+                                <select name="selectHourArrivee">
+                                    <option value=""> - </option>
+                                    @foreach (string hour in hours)
+                                    {
+                                        <option value="@hour">@hour h</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="text-align:center"><input type="submit" name="btnRechercher" value="Rechercher" /></div>
+                }
+            </div>
         </div>
     </div>
 </div>

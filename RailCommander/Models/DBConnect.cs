@@ -299,6 +299,59 @@ namespace RailCommander.Models
             }
         }
 
+        public List<Station> stations()
+        {
+
+            List<Station> lesStations = new List<Station>();
+            try
+            {
+                this.connection.Open();
+
+                MySqlCommand cmd = this.connection.CreateCommand();
+
+                cmd.CommandText = "SELECT * FROM station";
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    StringBuilder sb = new StringBuilder();
+                    while (reader.Read())
+                    {
+                        String idCity = reader.GetString(2);
+
+                        Station maStation = new Station();
+
+                        cmd.CommandText = "SELECT * FROM city WHERE CiID = " + idCity;
+                        using (MySqlDataReader reader2 = cmd.ExecuteReader())
+                        {
+                            while (reader2.Read())
+                            {
+                                City maCity = new City()
+                                {
+                                    ID = int.Parse(reader2.GetString(0)),
+                                    Name = reader2.GetString(1),
+                                    Department = reader2.GetString(2)
+                                };
+
+                                maStation.City = maCity;
+                            }
+                        }
+
+                        maStation.ID = int.Parse(reader.GetString(0));
+                        maStation.Name = reader.GetString(1);
+
+                        lesStations.Add(maStation);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return lesStations;
+        }
+
         //Stop
         public void AddStop(Stop stop)
         {

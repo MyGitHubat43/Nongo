@@ -23,5 +23,11 @@ namespace RailCommander.Models
         public int ID { get; set; }
         public String Name { get; set; }
         public City City { get; set; }
+
+        public static List<Station> lesStations()
+        {
+            DBConnect BDD = new DBConnect();
+            return BDD.stations();
+        }
     }
 }

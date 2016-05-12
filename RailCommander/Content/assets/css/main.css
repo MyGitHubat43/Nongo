@@ -3458,3 +3458,16 @@
     div #panneauClient h2{
         letter-spacing: 0;
     }
+
+
+    /*Recherche d'un billet*/
+
+    #blocSearch{
+        padding: 1%;
+        background-color: white;
+        width: 100%;
+        border-radius:3px;
+        -webkit-box-shadow: 0 0 2px 2px grey;
+        -moz-box-shadow: 0 0 2px 2px grey;
+        box-shadow: 0 0 2px 2px grey;
+    }

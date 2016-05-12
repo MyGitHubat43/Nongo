@@ -36,11 +36,8 @@ namespace RailCommander.Models
 
         public static List<User> mesUsers()
         {
-            List<User> users = new List<User>();
             DBConnect BDD = new DBConnect();
-            users = BDD.usersBDD();
-
-            return users;
+            return BDD.usersBDD();
         }
 
         public static void AddUser(User u)
