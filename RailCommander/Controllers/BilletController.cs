@@ -14,9 +14,14 @@ namespace RailCommander.Controllers
         // GET: Reservation
         public ActionResult Search()
         {
-            List<Station> myStation = new List<Station>();
+            //List<Station> myStation = new List<Station>();
             var query = (from station in mesStations
                          select station).ToList();
+
+            if(query.Count() == 0)
+            {
+                return RedirectToAction("Home", "Home");
+            }
 
             return View(query);
         }

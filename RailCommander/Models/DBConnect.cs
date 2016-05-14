@@ -20,6 +20,7 @@ namespace RailCommander.Models
         {
             string connectionString = "SERVER=127.0.0.1;DATABASE=railcommander;UID=root;PASSWORD=";
             this.connection = new MySqlConnection(connectionString);
+            this.connection.Open();
         }
 
         //User
@@ -27,7 +28,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -53,7 +54,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -80,7 +81,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -104,7 +105,7 @@ namespace RailCommander.Models
             List<User> lesUsers = new List<User>();
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -140,7 +141,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -167,7 +168,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -194,7 +195,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -217,12 +218,45 @@ namespace RailCommander.Models
             }
         }
 
+        public List<City> citys()
+        {
+            List<City> myCitys = new List<City>();
+            try
+            {
+                //this.connection.Open();
+
+                MySqlCommand cmd = this.connection.CreateCommand();
+                cmd.CommandText = "SELECT * FROM city";
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        City city = new City()
+                        {
+                            ID = int.Parse(reader.GetString(0)),
+                            Name = reader.GetString(1),
+                            Department = reader.GetString(2)
+                        };
+
+                        myCitys.Add(city);
+                    }
+                }
+
+            }catch(Exception e)
+            {
+
+            }
+
+            return myCitys;
+        }
+
         //Station
         public void AddStation(Station station)
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -249,7 +283,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -276,7 +310,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -305,7 +339,9 @@ namespace RailCommander.Models
             List<Station> lesStations = new List<Station>();
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
+
+                List<City> citys = this.citys();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -316,30 +352,24 @@ namespace RailCommander.Models
                     StringBuilder sb = new StringBuilder();
                     while (reader.Read())
                     {
-                        String idCity = reader.GetString(2);
+                        int idCity = int.Parse(reader.GetString(2));
 
-                        Station maStation = new Station();
-
-                        cmd.CommandText = "SELECT * FROM city WHERE CiID = " + idCity;
-                        using (MySqlDataReader reader2 = cmd.ExecuteReader())
+                        foreach(City maCity in citys)
                         {
-                            while (reader2.Read())
+                            if(maCity.ID == idCity)
                             {
-                                City maCity = new City()
+                                Station maStation = new Station()
                                 {
-                                    ID = int.Parse(reader2.GetString(0)),
-                                    Name = reader2.GetString(1),
-                                    Department = reader2.GetString(2)
+                                    ID = int.Parse(reader.GetString(0)),
+                                    Name = reader.GetString(1),
+                                    City = maCity
                                 };
 
-                                maStation.City = maCity;
+                                lesStations.Add(maStation);
+
+                                break;
                             }
                         }
-
-                        maStation.ID = int.Parse(reader.GetString(0));
-                        maStation.Name = reader.GetString(1);
-
-                        lesStations.Add(maStation);
                     }
                 }
 
@@ -357,7 +387,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -384,7 +414,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -411,7 +441,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -439,7 +469,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -466,7 +496,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -493,7 +523,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -521,7 +551,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -548,7 +578,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -575,7 +605,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -603,7 +633,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -630,7 +660,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -657,7 +687,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -685,7 +715,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -712,7 +742,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
@@ -739,7 +769,7 @@ namespace RailCommander.Models
         {
             try
             {
-                this.connection.Open();
+                //this.connection.Open();
 
                 MySqlCommand cmd = this.connection.CreateCommand();
 
