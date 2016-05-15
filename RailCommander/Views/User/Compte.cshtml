@@ -1,0 +1,52 @@
+﻿@model RailCommander.Models.User
+@{
+    ViewBag.Title = "Compte";
+}
+
+<div class="myBodyOther">
+    <div id="main">
+        <div class="inner">
+            <section>
+                <center>
+                    <h1>Mon compte</h1>
+                    <br />
+                    <div id="panneauClient">
+                        <div id="blocProfil">
+                            <h2><b>Mes informations</b></h2>
+                            @using (Html.BeginForm())
+                            {
+                                <table id="tabCompte">
+                                    <tr>
+                                        <td>Nom :</td>
+                                        <td class="tdInfosCompte">@Html.TextBoxFor(model => model.Name, new { @placeholder = "Nom" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prénom :</td>
+                                        <td class="tdInfosCompte">@Html.TextBoxFor(model => model.FirstName, new { @placeholder = "Prénom" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email :</td>
+                                        <td class="tdInfosCompte">@Html.TextBoxFor(model => model.Email, new { @placeholder = "Email" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mot de passe :</td>
+                                        <td class="tdInfosCompte">@Html.TextBoxFor(model => model.Pass, new { @placeholder = "Mot de passe", @class = "password"})</td>
+                                    </tr>
+                                </table>
+
+                                <div>
+                                    <input type="submit" name="btnSubmit" value="Modifier"/>
+                                </div>
+                            }
+                        </div>
+                        <div id="blocCommandes">
+                            <h2><b>Historique</b></h2>
+
+                        </div>
+                    </div>
+                </center>
+            </section>
+        </div>
+    </div>
+</div>
+

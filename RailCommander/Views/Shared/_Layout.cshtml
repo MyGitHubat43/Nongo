@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - RailCommander</title>
+    <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>-->
+    <link rel="stylesheet" href="../../Content/assets/css/main.css" />
+    <link rel="icon" href="../../Content/images/logo.jpg" />
+</head>
+<body>
+    <!-- Wrapper -->
+            <div id="FixHeader">
+                @if (Session["email"] != null && Session["pass"] != null)
+                {
+                    <div id="btnConnexionHeader">
+                        <img src="../../Content/images/mon_compte.jpg"/>
+                        @Html.ActionLink("Mon compte", "Compte", "User")
+                    </div>
+                    <div id="btnDeconnexionHeader">
+                        @Html.ActionLink("Deconnection", "Deconnexion", "User")
+                    </div>
+                }
+                else { <div id="btnConnexionHeader">@Html.ActionLink("Me connecter", "Connexion", "User")</div> }
+            </div>
+            <div id="myHeader">
+                @{ Html.RenderPartial("../template/_LayoutHeader"); }
+            </div>
+
+            <div id="myContain">
+                @RenderBody()
+            </div>
+
+
+            <div id="myFooter">
+                @{ Html.RenderPartial("../template/_LayoutFooter"); }
+            </div>
+
+
+    <!--<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>-->
+    <script src="../../Content/assets/js/jquery.min.js"></script>
+    <script src="../../Content/assets/js/skel.min.js"></script>
+    <script src="../../Content/assets/js/util.js"></script>
+    <script src="../../Content/assets/js/main.js"></script>
+    <script src="../../Content/assets/js/monJS.js"></script>
+</body>
+</html>
