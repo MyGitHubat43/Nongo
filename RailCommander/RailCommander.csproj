@@ -137,6 +137,7 @@
     <Content Include="Content\assets\js\ie\respond.min.js" />
     <Content Include="Content\assets\js\jquery.min.js" />
     <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\js\monJS.js" />
     <Content Include="Content\assets\js\skel.min.js" />
     <Content Include="Content\assets\js\util.js" />
     <Content Include="Content\bootstrap.css" />

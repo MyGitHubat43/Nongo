@@ -13,8 +13,8 @@
             <br />
             <div id="blocSearch">
                 <div style="text-align:center;font-size:3em;margin-bottom:3%;">Je recherche : </div>
-                @using (Html.BeginForm())
-                {
+                @*@using (Html.BeginForm())
+                {*@
                     <table id="tabSearch">
                         <tr>
                             <td colspan="2">
@@ -27,19 +27,19 @@
                         <tr>
                             <td><label>Départ :</label></td>
                             <td>
-                                <select name="selectStationDepart">
+                                <select name="selectStationDepart" id="selectStationDepart">
                                     <option value=""> - Gare - </option>
                                     @foreach(var item in Model)
                                     {
-                                        <option value='"@item.ID"'>@item.Name</option>
+                                        <option value="@item.ID">@item.Name</option>
                                     }
                                 </select>
                             </td>
                             <td><label>Aller :</label></td>
-                            <td><input type="date" name="dateDepart" value="@dateCurrent.ToString("yyyy-MM-dd")"/></td>
+                            <td><input type="date" name="dateDepart" id="dateDepart" value="@dateCurrent.ToString("yyyy-MM-dd")"/></td>
                             <td><label>A partir de :</label></td>
                             <td>
-                                <select name="selectHourDepart">
+                                <select name="selectHourDepart" id="selectHourDepart">
                                     <option value=""> - Horaire - </option>
                                     @foreach (string hour in hours)
                                     {
@@ -51,19 +51,19 @@
                         <tr>
                             <td><label>Arrivée :</label></td>
                             <td>
-                                <select name="selectStationArrivee">
+                                <select name="selectStationArrivee" id="selectStationEnd">
                                     <option value=""> - Gare - </option>
                                     @foreach (var item in Model)
                                     {
-                                        <option value='"@item.ID"'>@item.Name</option>
+                                        <option value="@item.ID">@item.Name</option>
                                     }
                                 </select>
                             </td>
                             <td bgcolor="#BBDEFB" class="elementSearchRetour"><label>Retour :</label></td>
-                            <td bgcolor="#BBDEFB" class="elementSearchRetour"><input type="date" name="dateArrivee" /></td>
+                            <td bgcolor="#BBDEFB" class="elementSearchRetour"><input type="date" name="dateRetour" id="dateRetour" /></td>
                             <td bgcolor="#BBDEFB" class="elementSearchRetour"><label>A partir de :</label></td>
                             <td bgcolor="#BBDEFB" class="elementSearchRetour">
-                                <select name="selectHourArrivee">
+                                <select name="selectHourRetour" id="selectHourRetour">
                                     <option value=""> - Horaire - </option>
                                     @foreach (string hour in hours)
                                     {
@@ -73,9 +73,88 @@
                             </td>
                         </tr>
                     </table>
-                    <div style="text-align:center"><input type="submit" name="btnRechercher" value="Rechercher" /></div>
-                }
+                    <div style="text-align:center"><input type="submit" name="btnRechercher" value="Rechercher" onclick="searchTrain();" /></div>
+                @*}*@
             </div>
+            <br />
+            <div id="blocListResult" style="display:none;"></div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    function searchTrain()
+    {
+        var ajax = false;
+        var choiceTravel = $("input[type=radio]:checked").val();
+
+        var gareStartIndex = document.getElementById('selectStationDepart');
+        var gareStart = gareStartIndex.options[gareStartIndex.selectedIndex].value;
+
+        var gareEndIndex = document.getElementById('selectStationEnd');
+        var gareEnd = gareEndIndex.options[gareEndIndex.selectedIndex].value;
+        
+        var dateStart = document.getElementById('dateDepart').value;
+        var dateReturn = document.getElementById('dateRetour').value;
+
+        var hourStartIndex = document.getElementById('selectHourDepart');
+        var hourStart = hourStartIndex.options[hourStartIndex.selectedIndex].value;
+
+        var hourReturnIndex = document.getElementById('selectHourRetour');
+        var hourReturn = hourReturnIndex.options[hourReturnIndex.selectedIndex].value;
+
+        if (gareStart != "" && gareEnd != "" && dateStart != "" && hourStart != "") {
+
+            if (choiceTravel == "AllerRetour") {
+                if (dateReturn != "" && hourReturn != "") {
+                    ajax = true;
+                } else {
+                    alert("Vous n'avez pas indiqué toutes les informations concernant le retour");
+                }
+            } else {
+                ajax = true;
+            }
+
+        } else {
+            alert("Informations manquantes");
+        }
+
+        console.log("Gare start :" + gareStart);
+        console.log("Gare end :" + gareEnd);
+        console.log("Date start :" + dateStart);
+        console.log("Date return :" + dateReturn);
+        console.log("Hour start :" + hourStart);
+        console.log("Hour return :" + hourReturn);
+        
+        if (ajax) {
+            var tabParam = Array();
+
+            tabParam['gareStart'] = gareStart;
+            tabParam['gareEnd'] = gareEnd;
+            tabParam['dateStart'] = dateStart;
+            tabParam['dateReturn'] = dateReturn;
+            tabParam['hourStart'] = hourStart;
+            tabParam['hourReturn'] = hourReturn;
+
+            urlAjax = "/Billet/ReturnNom";
+
+            $.get(
+                urlAjax,
+                {
+                    gareStartAjax: tabParam['gareStart'],
+                    gareEndAjax: tabParam['gareEnd'],
+                    dateStartAjax: tabParam['dateStart'],
+                    dateReturnAjax: tabParam['dateReturn'],
+                    hourStartAjax: tabParam['hourStart'],
+                    hourReturnAjax: tabParam['hourReturn']
+                },
+                function (data) {
+                    $('#blocListResult').css("display", "block");
+                    $('#blocListResult').prepend(data);
+                }
+            );
+        }
+    }
+
+</script>
